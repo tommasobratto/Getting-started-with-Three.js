@@ -20,9 +20,9 @@
     scene.add( cube );
     // the object will be added to the coordinates (0, 0, 0)
 
-    var light = new THREE.PointLight( 0x10ff05, 10, 100);
-
-    light.position.set( 50, 50, 50 );
+    var light = new THREE.DirectionalLight( 0xffffff, 1 );
+    
+    light.position.set(1, 1, 2);
 
     scene.add( light );
 

@@ -36,21 +36,32 @@ sphereMaterial ));
 scene.add( sphere )
 
 // add Lambert material to the sphere (type of reflection)
-var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xCC0000} )
+var sphereMaterial = new THREE.MeshPhongMaterial( {color: 0xCC0000, specular: 0x009900, shininess: 50, ambient: 0x030303} )
 
 // create a point light
-var pointLight = new THREE.PointLight(0xFFFFFF)
+var directionalLight = new THREE.DirectionalLight({ color: 0x030303 })
 
 // set position
-pointLight.position = 10;
-pointLight.position = 50;
-pointLight.position = 130;
+directionalLight.position.set( 1, 1, 1 )
 
-scene.add( pointLight )
+scene.add( directionalLight )
 
 sphere.geometry.dynamic = true;
 sphere.geometry.verticesNeedUpdate = true;
 sphere.geometry.normalsNeedUpdate = true;
 
 // render everything
+function render() {
+requestAnimationFrame( render );
+
+sphere.rotation.x += 0.05;
+sphere.rotation.y += 0.05;
+sphere.rotation.z += 0.05;
+
 renderer.render( scene, camera );
+};
+
+render();
+
+
+

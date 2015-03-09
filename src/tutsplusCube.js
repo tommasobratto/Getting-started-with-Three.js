@@ -11,5 +11,27 @@ document.body.appendChild(renderer.domElement)
 // this line is equivalent to a jQuery command like: $('body').append(renderer.domElement);
 
 // initialise a scene to render
-var scene = new THREE.scene;
+var scene = new THREE.Scene;
+
+// create the cube: we need to define its geometry(cube, rectangle, etc), 
+// its material(color/paint or wathever, shiny, opaque, etc), and initialise the resultant Mesh
+var cubeGeometry = new THREE.BoxGeometry(100, 100, 100); 
+// CubeGeometry is deprecated, renamed to BoxGeometry
+var cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x1ec876 })
+// Lambert is a material that reflects according to the Lambertian reflectance model... 
+// that is, a kind of non-shiny reflecting object interacting with light in the same way 
+// throughout all of its surface.
+// the object's brightness appears to be the same from all perspectives, 
+// without showing any particularly bright location on its surface.
+// in any case, that's always better than flat shading.
+var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+
+// some rotation to show off the cube
+cube.rotation.y = Math.PI * 45 / 180;
+
+scene.add( cube );
+
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+
+
 

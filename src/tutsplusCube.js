@@ -16,18 +16,19 @@ var scene = new THREE.Scene();
 // create the cube: we need to define its geometry(cube, rectangle, etc), 
 // its material(color/paint or wathever, shiny, opaque, etc), and initialise the resultant Mesh
 var cubeGeometry = new THREE.BoxGeometry(100, 100, 100); 
-// CubeGeometry is deprecated, renamed to BoxGeometry
+// CubeGeometry is deprecated, renamed to BoxGeometry (Three.js build r70)
 var cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x156CFF });
 // Lambert is a material that reflects according to the Lambertian reflectance model... 
 // that is, a kind of non-shiny reflecting object interacting with light in the same way 
 // throughout all of its surface.
 // the object's brightness appears to be the same from all perspectives, 
-// without showing any particularly bright location on its surface.
+// without showing any particularly bright (or shiny) location on its surface.
 // in any case, that's always better than flat shading.
 var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 
-// some rotation to show off the cube
-cube.rotation.y = Math.PI * 45 / 180;
+// some rotation to show off the cube 
+// (now commented out, being part of an earlier step of the tutorial)
+// cube.rotation.y = Math.PI * 45 / 180;
 // rotation is 45 degrees on the Y-axis, which are converted to radians
 
 scene.add( cube );
@@ -58,4 +59,18 @@ scene.add( skybox );
 
 scene.add(pointLight);
 
-renderer.render( scene, camera );
+// we add a rotation anim to the cube, this time using the clock object
+var clock = new THREE.Clock();
+
+function render() {
+  renderer.render( scene, camera );
+
+  cube.rotation.y -= clock.getDelta();
+  // the function getDelta should return the time since the last call. 
+  // in this case it should subtract the time passed from the last call to from the cube's rotation on the Y-axis.
+
+  requestAnimationFrame( render );
+  // the usual function to enact some kind of "render loop", refreshing the page a set interval. 
+}
+
+render();

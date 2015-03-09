@@ -39,8 +39,23 @@ var camera = new THREE.PerspectiveCamera( 45, width / height, 0.1, 10000 );
 camera.position.y = 160;
 camera.position.z = 400;
 // the Z-axis controls how distant is the camera perspective from your point of view
-camera.lookAt(cube.position)
+camera.lookAt(cube.position);
 
 scene.add( camera );
+
+var skyboxGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
+var skyboxMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
+// the side parameter controls the sides that get drawn, in this case the skybox's inner walls
+var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+
+var pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(0, 300, 200)
+
+scene.add( skybox );
+// apparently, the WebGL renderer in this version of Three.js (build r70) 
+// is rendering the canvas element background as a skybox by default, 
+// that or I don't know what's happening
+
+scene.add(pointLight);
 
 renderer.render( scene, camera );

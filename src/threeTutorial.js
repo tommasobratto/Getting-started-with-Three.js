@@ -9,7 +9,7 @@ var VIEW_ANGLE = 45;
   FAR = 10000;
 
 // Create a renderer, a camera and a scene
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({ antialias: true });
 var camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR );  
 var scene = new THREE.Scene();
 
